@@ -1,15 +1,15 @@
 'use strict';
 
 const calcDisplay = document.querySelector('.calcDisplay');
-let firstOpperand;
-let secondOpperand ;
-let operator;
+let firstOpperand = null;
+let secondOpperand = null;
+let operator = null;
 let mathArr = [];
 
 
 const mathOperator = () => {
  
-  if(firstOpperand != undefined && operator != undefined & secondOpperand != undefined)
+  if(firstOpperand != null && operator != null & secondOpperand != null)
 
   switch(operator) {
     case '+':
@@ -43,18 +43,31 @@ for(let i = 0; i < numbers.length; i++){
   document.getElementById('nine').value = 9;
   document.getElementById('decimal').value = '.';
 
-if(firstOpperand === mathOperator && operator !== undefined){
+if(firstOpperand === mathOperator && operator !== null){
   calcDisplay.value = '';
   calcDisplay.value  += numbers[i].value;
 }
 
  
- if(operator === undefined){
+ if(operator === null){
   calcDisplay.value += numbers[i].value;
   firstOpperand = calcDisplay.value;
- } else if (firstOpperand !== undefined && operator != undefined){
-   calcDisplay.value  += numbers[i].value;
-    secondOpperand = calcDisplay.value;
+
+
+// TF
+ } else if (firstOpperand !== null && operator != null){
+  secondOpperand = numbers[i].value;
+  calcDisplay.value += secondOpperand;
+   
+  
+ 
+  } else if (firstOpperand !== null && 
+    operator !== null && 
+    secondOpperand !== null){ 
+    firstOpperand = mathOperator();
+     calcDisplay.value = firstOpperand;
+     operator = null;
+     secondOpperand = null;
   } 
 
   console.log(firstOpperand, operator, secondOpperand);
@@ -74,8 +87,8 @@ if(firstOpperand === mathOperator && operator !== undefined){
    calcDisplay.value = '';
 
 
-   if(firstOpperand != undefined && operator != undefined & secondOpperand != undefined){
-     calcDisplay.value = '';
+   if(firstOpperand != null && operator != null & secondOpperand != null){
+    //  calcDisplay.value = '';
      mathOperator();
       firstOpperand = mathOperator();
       operator = operators[x].value;
@@ -90,14 +103,14 @@ if(firstOpperand === mathOperator && operator !== undefined){
  const equalBtn = document.querySelector('#equal').addEventListener('click', () => {
    mathOperator();
    firstOpperand = mathOperator();
-   secondOpperand = undefined;
-   operator = undefined;
+   secondOpperand = null;
+   operator = null;
  });
 
 // Clear Input
 const clrBtn = document.querySelector('#clearBtn').addEventListener('click', () => {
   calcDisplay.value = '';
-  firstOpperand = undefined;
-  secondOpperand = undefined;
-  operator = undefined;
+  firstOpperand = null;
+  secondOpperand = null;
+  operator = null;
 });
