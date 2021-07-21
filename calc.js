@@ -4,25 +4,9 @@ const calcDisplay = document.querySelector('.calcDisplay');
 let firstOpperand = null;
 let secondOpperand = null;
 let operator = null;
-let result = 0;
+// Maybe impliment a object since secondOpperand isnt one since no value? 
+let  result = 0;
 
-const showResult = () => {
-  if (firstOpperand != null && operator != null && secondOpperand != null)
-
-  switch (operator) {
-    case '+':
-     return result = parseFloat(firstOpperand)  + parseFloat(secondOpperand) ;
-      break;
-    case '-': 
-    return result = parseFloat(firstOpperand)  - parseFloat(secondOpperand) ;
-      break;
-    case '/':
-      return result = parseFloat(firstOpperand)  / parseFloat(secondOpperand) ;
-      break;
-    case '*':
-      return result = parseFloat(firstOpperand)  * parseFloat(secondOpperand) ;
-  }
-}
 
 const mathOperator = () => {
  
@@ -43,8 +27,6 @@ const mathOperator = () => {
   }
 };
 
-
-
 // Number Buttons
 const numbers = document.querySelectorAll('.number');
 for (let i = 0; i < numbers.length; i++) {
@@ -63,36 +45,25 @@ for (let i = 0; i < numbers.length; i++) {
   document.getElementById('decimal').value = '.';
 
 
-
-if(operator == null){
+ if (operator === null) {
   calcDisplay.value += numbers[i].value;
   firstOpperand = calcDisplay.value;
-} else if(operator != null){
-result = '';
-calcDisplay.value += numbers[i].value;
-secondOpperand = calcDisplay.value;
+
+} else if (firstOpperand !== null && operator != null) {
+  secondOpperand += numbers[i].value;
+  calcDisplay.value = result;
 } 
+else if (
+  firstOpperand !== null &&
+  operator !== null &&
+  secondOpperand !== null
+) {
+  firstOpperand = mathOperator();
+  calcDisplay.value = firstOpperand;
+  operator = null;
+  secondOpperand = null;
+}
 
-
-//  if (operator == null) {
-//   calcDisplay.value += numbers[i].value;
-//   firstOpperand = calcDisplay.value;
-//  } else if(operator != null && secondOpperand == null && calcDisplay.value == ''){
-//     result.value = '';
-//  }
-
-//  else if (firstOpperand != null && operator != null){
-//    calcDisplay.value += numbers[i].value
-//    secondOpperand = calcDisplay.value;
-// } 
-// else if (firstOpperand !== null && operator !== null &&
-//   secondOpperand !== null) {
-//    firstOpperand = mathOperator();
-//    calcDisplay.value = firstOpperand;
-//    operator = null;
-//    secondOpperand = null;
-// }
-   
   console.log(firstOpperand, operator, secondOpperand);
   });
 }
@@ -114,14 +85,14 @@ secondOpperand = calcDisplay.value;
     firstOpperand != null &&
     (operator != null) & (secondOpperand != null)
   ) {
-    //  mathOperator();
-      showResult();
+    
+      
+       mathOperator();
       firstOpperand = mathOperator();
-      // firstOpperand = showResult();
       operator = operators[x].value;
-      calcDisplay.value = result;
-      // result = mathOperator();
    } 
+   
+    console.log(firstOpperand, operator);
    });
  }
 
