@@ -6,6 +6,7 @@ let secondOperand = '';
 let operator = '';
 let result = 0;
 
+
 const mathOperator = (firstOperand, operator, secondOperand) => {
   let calculationResult = 0;
   if (firstOperand != '' && operator != '' && secondOperand != '')
@@ -17,11 +18,11 @@ const mathOperator = (firstOperand, operator, secondOperand) => {
     case '-': 
     calculationResult =  parseFloat(firstOperand)  - parseFloat(secondOperand) ;
       break;
-    case '/':
+    case '÷':
       calculationResult = parseFloat(firstOperand)  / parseFloat(secondOperand) ;
       break;
-    case '*':
-      calculationResult = parseFloat(firstOperand)  * parseFloat(secondOperand) ;
+    case 'x':
+      calculationResult = parseFloat(firstOperand) * parseFloat(secondOperand) ;
   }
   return calculationResult;
 }
@@ -51,7 +52,10 @@ numberButtons.addEventListener('click', (e) => {
  operators.forEach((operatorButton) => {
   operatorButton.addEventListener('click', (e) => {
     e.preventDefault();
-    operator = e.target.textContent;
+    
+    if(!operator){
+      operator = e.target.textContent;
+    }
     if(firstOperand && operator && secondOperand){
       result = mathOperator(firstOperand, operator, secondOperand);
       calcDisplay.value = result;
@@ -61,6 +65,7 @@ numberButtons.addEventListener('click', (e) => {
     }
   });
  });
+
 
 
 

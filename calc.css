@@ -12,7 +12,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(48, 185, 151);
+  background-color: rgb(48, 50, 56);
   width: 500px;
   margin: auto;
   height: 600px;
@@ -48,12 +48,14 @@ body {
 }
 
 .calcDisplay {
-  max-width: 85%;
+  display: flex;
+  text-align: end;
+  width: 100%;
   height: 100%;
   font-size: 2.5rem;
-  direction: rtl;
   border: 4px solid black;
 }
+
 
 .calcDisplay:focus {
   outline: none;
@@ -102,25 +104,25 @@ input::-webkit-inner-spin-button {
 }
 
 .operators {
-  background-color: peachpuff;
+  background-color: rgb(89, 187, 226);
 }
 
 #equal {
-  background-color: peachpuff;
+  background-color:rgb(89, 187, 226) ;
 }
 
 #equal:hover {
-  background-color: rgb(236, 161, 94);
+  background-color: peachpuff;
   cursor: pointer;
 }
 
 .operators:hover {
-  background-color: rgb(236, 161, 94);
+  background-color: peachpuff;
   cursor: pointer;
 }
 
 .number {
-  background: rgb(73, 216, 216);
+  background: rgb(155, 102, 160);
 }
 .number:hover {
   background-color: darkcyan;
