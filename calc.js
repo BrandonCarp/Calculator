@@ -1,118 +1,89 @@
 'use strict';
 
 const calcDisplay = document.querySelector('.calcDisplay');
-let firstOpperand = null;
-let secondOpperand = null;
-let operator = null;
-// Maybe impliment a object since secondOpperand isnt one since no value? 
-let  result = 0;
+let firstOperand = '';
+let secondOperand = '';
+let operator = '';
+let result = 0;
 
-
-const mathOperator = () => {
- 
-  if (firstOpperand != null && operator != null && secondOpperand != null)
+const mathOperator = (firstOperand, operator, secondOperand) => {
+  let calculationResult = 0;
+  if (firstOperand != '' && operator != '' && secondOperand != '')
 
   switch (operator) {
     case '+':
-     return calcDisplay.value = parseFloat(firstOpperand)  + parseFloat(secondOpperand) ;
+      calculationResult =  parseFloat(firstOperand)  + parseFloat(secondOperand) ;
       break;
     case '-': 
-    return calcDisplay.value = parseFloat(firstOpperand)  - parseFloat(secondOpperand) ;
+    calculationResult =  parseFloat(firstOperand)  - parseFloat(secondOperand) ;
       break;
     case '/':
-      return calcDisplay.value = parseFloat(firstOpperand)  / parseFloat(secondOpperand) ;
+      calculationResult = parseFloat(firstOperand)  / parseFloat(secondOperand) ;
       break;
     case '*':
-      return calcDisplay.value = parseFloat(firstOpperand)  * parseFloat(secondOpperand) ;
+      calculationResult = parseFloat(firstOperand)  * parseFloat(secondOperand) ;
   }
-};
+  return calculationResult;
+}
+
+
+
 
 // Number Buttons
 const numbers = document.querySelectorAll('.number');
-for (let i = 0; i < numbers.length; i++) {
-  numbers[i].addEventListener('click', () => {
+numbers.forEach((numberButtons) => {
+numberButtons.addEventListener('click', (e) => { 
+  e.preventDefault();
+  if(!operator) {
+    firstOperand += e.target.textContent;
+    calcDisplay.value = firstOperand;
+  }
 
-  document.getElementById('zero').value = 0;
-  document.getElementById('one').value = 1;
-  document.getElementById('two').value = 2;
-  document.getElementById('three').value = 3;
-  document.getElementById('four').value = 4;
-  document.getElementById('five').value = 5;
-  document.getElementById('six').value = 6;
-  document.getElementById('seven').value = 7;
-  document.getElementById('eight').value = 8;
-  document.getElementById('nine').value = 9;
-  document.getElementById('decimal').value = '.';
-
-
- if (operator === null) {
-  calcDisplay.value += numbers[i].value;
-  firstOpperand = calcDisplay.value;
-
-} else if (firstOpperand !== null && operator != null) {
-  secondOpperand += numbers[i].value;
-  calcDisplay.value = result;
-} 
-else if (
-  firstOpperand !== null &&
-  operator !== null &&
-  secondOpperand !== null
-) {
-  firstOpperand = mathOperator();
-  calcDisplay.value = firstOpperand;
-  operator = null;
-  secondOpperand = null;
-}
-
-  console.log(firstOpperand, operator, secondOpperand);
-  });
-}
+  if(firstOperand && operator){
+    secondOperand += e.target.textContent;
+    calcDisplay.value = secondOperand;
+  }
+});
+});
 
 // Operator buttons
  const operators = document.querySelectorAll('.operators');
- for(let x = 0; x < operators.length; x++) {
-   operators[x].addEventListener('click', () => {
- 
-    document.getElementById('divide').value = '/';
-    document.getElementById('multiply').value = '*';
-    document.getElementById('subtract').value = '-';
-    document.getElementById('add').value = '+';
-   operator = operators[x].value;
-   calcDisplay.value = '';
+ operators.forEach((operatorButton) => {
+  operatorButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    operator = e.target.textContent;
+    if(firstOperand && operator && secondOperand){
+      result = mathOperator(firstOperand, operator, secondOperand);
+      calcDisplay.value = result;
+      firstOperand = result;
+      operator = e.target.textContent;
+      secondOperand = '';
+    }
+  });
+ });
 
-
-   if (
-    firstOpperand != null &&
-    (operator != null) & (secondOpperand != null)
-  ) {
-    
-      
-       mathOperator();
-      firstOpperand = mathOperator();
-      operator = operators[x].value;
-   } 
-   
-    console.log(firstOpperand, operator);
-   });
- }
 
 
 // Equal Button
 const equalBtn = document
   .querySelector('#equal')
   .addEventListener('click', () => {
-    mathOperator();
-    firstOpperand = mathOperator();
-    secondOpperand = null;
-    operator = null;
+    if(firstOperand && operator && secondOperand){
+    result = mathOperator(firstOperand, operator, secondOperand);
+    calcDisplay.value = result;
+    firstOperand = result;
+    secondOperand = '';
+    operator = '';
+    }
   });
 
-// Clear Input
+// // Clear Input
 const clrBtn = document
   .querySelector('#clearBtn')
   .addEventListener('click', () => {
     calcDisplay.value = '';
-    firstOpperand = null;
-    secondOpperand = null;
-    operator = null;
+    firstOperand = '';
+    operator = '';
+    secondOperand = '';
+    result = '';
   });
